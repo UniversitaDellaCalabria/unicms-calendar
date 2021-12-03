@@ -1,0 +1,115 @@
+{% extends this_string_will_be_replaced %}
+
+{% load i18n %}
+{% load static %}
+
+<!-- From app django-sass-processor -->
+{% if debug %}
+    {% load sass_tags %}
+{% endif %}
+{% load static %}
+
+<!-- load custom template tags -->
+{% load unicms_calendar %}
+{% load unicms_contexts %}
+{% load unicms_pages %}
+
+<!-- SEO  -->
+{% block page_title %}{{ calendar_context.calendar.name }}{% endblock page_title %}
+{% block page_meta_description %}{{ calendar_context.calendar.description }}{% endblock page_meta_description %}
+
+{% block extra_head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% sass_src 'css/unicms_calendar.scss' %}" type="text/css">
+<!-- Link VCalendar Javascript (Plugin automatically installed) -->
+<script src='https://unpkg.com/v-calendar'></script>
+{% endblock extra_head %}
+
+{% block container %}
+
+{% breadcrumbs webpath=webpath leaf=handler %}
+
+<div class="py-5">
+    <div class="container" id="calendar">
+        <h1 class="mb-4 lighter">{{ calendar_context.calendar.name }}</h1>
+
+        <v-calendar
+            class="custom-calendar"
+            :masks="masks"
+            :attributes="attributes"
+            locale="{{ lang }}"
+            {% comment %}
+            disable-page-swipe
+            is-expanded
+            {% endcomment %}
+        >
+            <template v-slot:day-content="{ day, attributes }">
+                <div class="flex flex-col h-100 overflow-hidden" style="font-size: 0.875rem">
+                    <span class="day-label text-sm text-gray-900">[[ day.day ]]</span>
+                    <div class="overflow-auto" style="max-height: 65%">
+                        <a v-for="attr in attributes"
+                           :href="attr.customData.id"
+                           :title="attr.customData.title"
+                           class="text-white align-top">
+                            <p :key="attr.key"
+                               class="rounded p-1 mt-0 mb-1 mx-1"
+                               :class="attr.customData.class">
+                                <span style="font-size: smaller">
+                                    <b>[[ attr.customData.title ]]</b>
+                                </span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </v-calendar>
+    </div>
+</div>
+
+<script>
+var news = new Vue({
+    el: '#calendar',
+    data () {
+        return {
+            colors: {0: "secondary",
+                     1: "danger",
+                     2: "info",
+                     3: "success",
+                     4: "warning",},
+            url: '{% url "unicms_calendar:api-context-calendar-events" webpath_id=webpath.pk calendar_id=calendar_context.calendar.pk %}',
+            masks: {
+                weekdays: 'WWW',
+            },
+            attributes: [],
+        }
+    },
+    mounted() {
+        this.getEvents(this.url);
+    },
+    methods: {
+        getEvents(){
+            axios
+                .get(this.url)
+                .then(response => {
+                    response.data.results.forEach((item, index)=>{
+                        this.attributes.push(
+                            {
+                                key: index,
+                                customData: {
+                                    id: item.event.id,
+                                    title: item.event.publication_data.title,
+                                    class: 'bg-' +  this.colors[index % 4] +' text-white',
+                                },
+                                dates: { start: new Date(item.event.date_start),
+                                         end: new Date(item.event.date_end) }
+                            }
+                        )
+                    })
+                })
+        },
+
+    }
+})
+</script>
+
+{% endblock container %}

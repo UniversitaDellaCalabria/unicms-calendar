@@ -1,0 +1,39 @@
+{% extends this_string_will_be_replaced %}
+
+{% load i18n %}
+{% load static %}
+
+<!-- From app django-sass-processor -->
+{% if debug %}
+    {% load sass_tags %}
+{% endif %}
+{% load static %}
+
+<!-- load custom template tags -->
+{% load unicms_calendar %}
+{% load unicms_carousels %}
+{% load unicms_contexts %}
+{% load unicms_menus %}
+{% load unicms_templates %}
+{% load unicms_pages %}
+{% load unicms_publications %}
+
+<!-- SEO  -->
+{% block page_title %}evento{% endblock page_title %}
+{% block page_meta_description %}evento{% endblock page_meta_description %}
+
+{% block container %}
+
+{% breadcrumbs webpath=webpath leaf=handler %}
+
+<div class="py-5">
+    <div class="container">
+        <div class="mb-3">
+            <svg class="icon">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
+            </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
+        </div>
+        {% include "blocks/unical_publication_full_view.html" with publication=event.publication %}
+    </div>
+</div>
+{% endblock container %}
