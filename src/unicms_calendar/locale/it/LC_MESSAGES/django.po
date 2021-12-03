@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-03 12:56+0100\n"
+"PO-Revision-Date: 2021-12-03 12:58+0100\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 3.0\n"
+
+#: handlers.py:76 handlers.py:86 handlers.py:183 models.py:30
+msgid "Calendars"
+msgstr "Calendari"
+
+#: models.py:84
+msgid "Calendar Localization"
+msgstr "Localizzazione calendari"
+
+#: models.py:104
+msgid "Calendar events"
+msgstr "Eventi calendari"
+
+#: models.py:125
+msgid "Calendar event relations"
+msgstr "Relazioni eventi calendario"
+
+#: models.py:144
+msgid "Calendar Contexts"
+msgstr "Webpath calendario"
+
+#: templates/blocks/unicms_calendar_events.html:43
+msgid "Go to calendars detail"
+msgstr "Vai ai dettagli dei calendari"
+
+#: templates/blocks/unicms_calendar_events_list.html:25
+msgid "Next events"
+msgstr "Prossimi eventi"
+
+#: templates/blocks/unicms_calendar_events_list.html:78
+msgid "results"
+msgstr "risultati"
+
+#: templates/blocks/unicms_calendar_events_list.html:78
+#: templates/unicms_calendars.html:43
+msgid "pages"
+msgstr "pagine"
+
+#: templates/blocks/unicms_calendar_events_list.html:86
+#: templates/blocks/unicms_calendar_events_list.html:92
+msgid "page"
+msgstr "pagina"
+
+#: templates/unicms_calendars.html:43
+msgid "calendars"
+msgstr "calendari"
+
+#: templates/unicms_calendars.html:51 templates/unicms_calendars.html:59
+msgid "Page"
+msgstr "Pagina"
+
+#: templates/unicms_calendars.html:51
+msgid "Previous"
+msgstr "Precedente"
+
+#: templates/unicms_calendars.html:59
+msgid "Next"
+msgstr "Successivo"
