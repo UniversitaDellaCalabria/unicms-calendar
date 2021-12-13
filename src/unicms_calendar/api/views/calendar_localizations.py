@@ -1,5 +1,3 @@
-import logging
-
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -12,33 +10,29 @@ from rest_framework.views import APIView
 from cms.api.exceptions import LoggedPermissionDenied
 from cms.api.serializers import UniCMSFormSerializer
 from cms.api.utils import check_user_permission_on_object
-from cms.api.views.generics import UniCMSCachedRetrieveUpdateDestroyAPIView, UniCMSListCreateAPIView
+from cms.api.views.generics import *
 from cms.api.views.logs import ObjectLogEntriesList
 
-from ... forms import *
-from ... models import CalendarContext, CalendarEvent
+from ... forms import CalendarLocalizationForm
+from ... models import *
 from ... serializers import *
 
 
-logger = logging.getLogger(__name__)
-
-
-class CalendarEventList(UniCMSListCreateAPIView):
+class CalendarLocalizationList(UniCMSListCreateAPIView):
     """
     """
     description = ""
-    ordering_fields = ['event__publication__name','event__publication__title',
-                       'is_active','order','id']
-    search_fields = ['event__publication__title']
-    serializer_class = CalendarEventSerializer
+    search_fields = ['language', 'name']
+    permission_classes = [IsAdminUser]
+    serializer_class = CalendarLocalizationSerializer
 
     def get_queryset(self):
         """
         """
         calendar_id = self.kwargs.get('calendar_id')
         if calendar_id:
-            return CalendarEvent.objects.filter(calendar__pk=calendar_id)
-        return CalendarEvent.objects.none()  # pragma: no cover
+            return CalendarLocalization.objects.filter(calendar__pk=calendar_id)
+        return CalendarLocalization.objects.none() # pragma: no cover
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -51,34 +45,34 @@ class CalendarEventList(UniCMSListCreateAPIView):
             if not permission['granted']:
                 raise LoggedPermissionDenied(classname=self.__class__.__name__,
                                              resource=request.method)
-
             return super().post(request, *args, **kwargs)
 
 
-class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
+class CalendarLocalizationView(UniCMSCachedRetrieveUpdateDestroyAPIView):
     """
     """
     description = ""
     permission_classes = [IsAdminUser]
-    serializer_class = CalendarEventSerializer
+    serializer_class = CalendarLocalizationSerializer
 
     def get_queryset(self):
         """
         """
         calendar_id = self.kwargs['calendar_id']
-        event_id = self.kwargs['pk']
-        calendar_events = CalendarEvent.objects.filter(calendar__pk=calendar_id,
-                                                       pk=event_id)
-        return calendar_events
+        item_id = self.kwargs['pk']
+        items = CalendarLocalization.objects\
+                                        .select_related('calendar')\
+                                        .filter(pk=item_id,
+                                                calendar__pk=calendar_id)
+        return items
 
     def patch(self, request, *args, **kwargs):
         item = self.get_queryset().first()
-        if not item:
-            raise Http404
-        # get calendar
-        item.calendar
+        if not item: raise Http404
+        calendar = item.calendar
+        # check permissions on calendar
         permission = check_user_permission_on_object(request.user,
-                                                     item.calendar)
+                                                     calendar)
         if not permission['granted']:
             raise LoggedPermissionDenied(classname=self.__class__.__name__,
                                          resource=request.method)
@@ -86,12 +80,11 @@ class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         item = self.get_queryset().first()
-        if not item:
-            raise Http404
-        # get calendar
-        item.calendar
+        if not item: raise Http404
+        calendar = item.calendar
+        # check permissions on calendar
         permission = check_user_permission_on_object(request.user,
-                                                     item.calendar)
+                                                     calendar)
         if not permission['granted']:
             raise LoggedPermissionDenied(classname=self.__class__.__name__,
                                          resource=request.method)
@@ -99,39 +92,41 @@ class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         item = self.get_queryset().first()
-        if not item:
-            raise Http404
-        # get calendar
-        item.calendar
+        if not item: raise Http404
+        calendar = item.calendar
+        # check permissions on calendar
         permission = check_user_permission_on_object(request.user,
-                                                     item.calendar)
+                                                     calendar)
         if not permission['granted']:
             raise LoggedPermissionDenied(classname=self.__class__.__name__,
                                          resource=request.method)
         return super().delete(request, *args, **kwargs)
 
 
-class CalendarEventFormView(APIView):
+class CalendarLocalizationFormView(APIView):
 
     def get(self, *args, **kwargs):
-        form = CalendarEventForm(calendar_id=kwargs.get('calendar_id'))
+        form = CalendarLocalizationForm(calendar_id=kwargs.get('calendar_id'))
         form_fields = UniCMSFormSerializer.serialize(form)
         return Response(form_fields)
 
 
-class CalendarEventLogsSchema(AutoSchema):
-    def get_operation_id(self, path, method):  # pragma: no cover
-        return 'listCalendarEventLogs'
+class CalendarLocalizationLogsSchema(AutoSchema):
+    def get_operation_id(self, path, method):# pragma: no cover
+        return 'listCalendarLocalizationLogs'
 
 
-class CalendarEventLogsView(ObjectLogEntriesList):
+class CalendarLocalizationLogsView(ObjectLogEntriesList):
 
-    schema = CalendarEventLogsSchema()
+    schema = CalendarLocalizationLogsSchema()
 
     def get_queryset(self, **kwargs):
         """
         """
+        calendar_id = self.kwargs['calendar_id']
         object_id = self.kwargs['pk']
-        item = get_object_or_404(CalendarEvent, pk=object_id)
+        item = get_object_or_404(CalendarLocalization.objects.select_related('calendar'),
+                                 pk=object_id,
+                                 calendar__pk=calendar_id)
         content_type_id = ContentType.objects.get_for_model(item).pk
         return super().get_queryset(object_id, content_type_id)

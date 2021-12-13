@@ -29,6 +29,8 @@ class EventList(UniCMSListCreateAPIView):
     """
     """
     description = ""
+    ordering_fields = ['publication__name','publication__title',
+                       'is_active','order','id']
     search_fields = ['publication__title']
     permission_classes = [EventGetCreatePermissions]
     serializer_class = EventSerializer
@@ -118,7 +120,7 @@ class EventOptionList(UniCMSListSelectOptionsAPIView):
     """
     """
     description = ""
-    search_fields = ['name']
+    search_fields = ['publication__name', 'publication__title']
     serializer_class = EventSelectOptionsSerializer
     queryset = Event.objects.all()
     schema = EventOptionListSchema()

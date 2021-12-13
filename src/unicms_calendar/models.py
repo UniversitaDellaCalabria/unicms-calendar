@@ -56,6 +56,11 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                                               event__is_active=True)
         return events
 
+    def is_lockable_by(self, user):
+        item = self
+        permission = check_user_permission_on_object(user=user, obj=item)
+        return permission['granted']
+
     def get_future_events(self):
         now = timezone.localtime()
         events = self.get_events().filter(models.Q(event__date_start__gte=now) |
@@ -98,7 +103,7 @@ class Event(ActivableModel, TimeStampedModel,
                                     blank=True, null=True)
     date_start = models.DateTimeField()
     date_end = models.DateTimeField()
-    tags = TaggableManager()
+    # tags = TaggableManager()
 
     class Meta:
         verbose_name_plural = _("Calendar events")
@@ -107,10 +112,10 @@ class Event(ActivableModel, TimeStampedModel,
     def translate_as(self, lang=settings.LANGUAGE):
         self.publication.translate_as(lang)
 
-    # def is_lockable_by(self, user):
-        # item = self.calendar
-        # permission = check_user_permission_on_object(user=user, obj=item)
-        # return permission['granted']
+    def is_lockable_by(self, user):
+        item = self
+        permission = check_user_permission_on_object(user=user, obj=item)
+        return permission['granted']
 
     def __str__(self):
         return '{}'.format(self.publication)
@@ -130,6 +135,11 @@ class CalendarEvent(ActivableModel, TimeStampedModel,
         self.calendar.translate_as(lang)
         self.event.translate_as(lang)
 
+    def is_lockable_by(self, user):
+        item = self.calendar
+        permission = check_user_permission_on_object(user=user, obj=item)
+        return permission['granted']
+
     def __str__(self):
         return '[{}] {}'.format(self.calendar, self.event)
 
@@ -141,6 +151,7 @@ class CalendarContext(TimeStampedModel, ActivableModel,
     webpath = models.ForeignKey(WebPath, on_delete=models.CASCADE)
 
     class Meta:
+        unique_together = ('webpath', 'calendar')
         verbose_name_plural = _("Calendar Contexts")
         ordering = ['webpath__fullpath', 'order']
 

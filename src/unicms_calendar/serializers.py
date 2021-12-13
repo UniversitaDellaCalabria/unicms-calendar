@@ -1,34 +1,24 @@
 from django.urls import reverse
 
-from cms.publications.serializers import PublicationSerializer
+from cms.api.serializers import UniCMSContentTypeClass, UniCMSCreateUpdateSerializer
+from cms.contexts.serializers import WebPathSerializer
+from cms.publications.serializers import PublicationSerializer, WebPathForeignKey
 
 from rest_framework import serializers
 
 from . models import *
 from . settings import CMS_CALENDAR_VIEW_PREFIX_PATH
 
-class CalendarSerializer(serializers.ModelSerializer):
+class CalendarSerializer(UniCMSCreateUpdateSerializer,
+                         UniCMSContentTypeClass):
     class Meta:
         model = Calendar
         fields = '__all__'
         read_only_fields = ('created_by', 'modified_by')
 
 
-class CalendarContextSerializer(serializers.ModelSerializer):
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        calendar = CalendarSerializer(instance.calendar)
-        data['calendar'] = calendar.data
-        data['path'] = instance.url
-        return data
-
-    class Meta:
-        model = CalendarContext
-        fields = '__all__'
-        read_only_fields = ('created_by', 'modified_by')
-
-
-class EventSerializer(serializers.ModelSerializer):
+class EventSerializer(UniCMSCreateUpdateSerializer,
+                      UniCMSContentTypeClass):
 
     # tags = TagListSerializerField()
 
@@ -44,7 +34,8 @@ class EventSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_by', 'modified_by')
 
 
-class CalendarEventSerializer(serializers.ModelSerializer):
+class CalendarEventSerializer(UniCMSCreateUpdateSerializer,
+                              UniCMSContentTypeClass):
 
     # tags = TagListSerializerField()
 
@@ -69,7 +60,8 @@ class CalendarEventSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_by', 'modified_by')
 
 
-class CalendarSelectOptionsSerializer(serializers.ModelSerializer):
+class CalendarSelectOptionsSerializer(UniCMSCreateUpdateSerializer,
+                                      UniCMSContentTypeClass):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -82,14 +74,42 @@ class CalendarSelectOptionsSerializer(serializers.ModelSerializer):
         fields = ()
 
 
-class EventSelectOptionsSerializer(serializers.ModelSerializer):
+class EventSelectOptionsSerializer(UniCMSCreateUpdateSerializer,
+                                   UniCMSContentTypeClass):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data['value'] = instance.pk
-        data['text'] = instance.name
+        data['text'] = instance.publication.name
         return data
 
     class Meta:
         model = Event
         fields = ()
+
+
+class CalendarContextSerializer(UniCMSCreateUpdateSerializer,
+                                UniCMSContentTypeClass):
+    webpath = WebPathForeignKey()
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        calendar = CalendarSerializer(instance.calendar)
+        data['calendar'] = calendar.data
+        webpath = WebPathSerializer(instance.webpath)
+        data['webpath'] = webpath.data
+        data['path'] = instance.url
+        return data
+
+    class Meta:
+        model = CalendarContext
+        fields = '__all__'
+        read_only_fields = ('created_by', 'modified_by')
+
+
+class CalendarLocalizationSerializer(UniCMSCreateUpdateSerializer,
+                                         UniCMSContentTypeClass):
+    class Meta:
+        model = CalendarLocalization
+        fields = '__all__'
+        read_only_fields = ('created_by', 'modified_by')
