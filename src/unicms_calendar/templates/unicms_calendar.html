@@ -38,6 +38,7 @@
             :masks="masks"
             :attributes="attributes"
             locale="{{ lang }}"
+            @update:from-page="switchPage"
             {% comment %}
             disable-page-swipe
             is-expanded
@@ -83,13 +84,10 @@ var news = new Vue({
             attributes: [],
         }
     },
-    mounted() {
-        this.getEvents(this.url);
-    },
     methods: {
-        getEvents(){
+        getEvents(url){
             axios
-                .get(this.url)
+                .get(url)
                 .then(response => {
                     response.data.results.forEach((item, index)=>{
                         this.attributes.push(
@@ -107,7 +105,10 @@ var news = new Vue({
                     })
                 })
         },
-
+        switchPage(page) {
+            this.attributes = []
+            this.getEvents(this.url + '?page_size=200&year='+page.year+'&month='+page.month);
+        }
     }
 })
 </script>

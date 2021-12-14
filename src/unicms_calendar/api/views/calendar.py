@@ -3,6 +3,7 @@ import logging
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 
 from cms.contexts.decorators import detect_language
@@ -121,14 +122,17 @@ class ApiContextCalendarEvents(generics.ListAPIView):
     def get_queryset(self):
         """
         """
+        localtime = timezone.localtime()
+        params = self.request.GET
+        month = params.get('month', localtime.month)
+        year = params.get('year', localtime.year)
         webpath_id = self.kwargs['webpath_id']
         calendar_id = self.kwargs['calendar_id']
         query_params = calendar_context_base_filter()
         query_params.update({'webpath__pk': webpath_id,
                              'calendar__pk': calendar_id})
         calcontx = get_object_or_404(CalendarContext, **query_params)
-        events = calcontx.calendar.get_future_events()
-
+        events = calcontx.calendar.get_events(year=year, month=month)
         # i18n
         lang = getattr(self.request, 'LANGUAGE_CODE', None)
         if lang:
