@@ -28,7 +28,7 @@
              slot-scope="{ day, dayTitle, attributes }">
                 <ul style="list-style: none" class="pl-2">
                     <li v-for="attr in attributes">
-                        <b class="mr-2" :style="'color:' + [[ attr.dot.base.color ]]">-</b>
+                        <b class="mr-2" :style="'color:' + [[ attr.bar.base.color ]]">-</b>
                         <a class="text-white" :href="attr.popover.url">
                             [[ attr.popover.label ]]
                         </a>
@@ -87,7 +87,7 @@ var {{ id }} = new Vue({
                         start: new Date(event.event.date_start),
                         end: new Date(event.event.date_end)
                     },
-                    dot: this.colors[index % 4],
+                    bar: this.colors[0],
                     popover: {
                         label: event.event.publication_data.title,
                         url: event.event_url,
