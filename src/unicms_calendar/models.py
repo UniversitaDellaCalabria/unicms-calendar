@@ -167,6 +167,9 @@ class CalendarContext(TimeStampedModel, ActivableModel,
         verbose_name_plural = _("Calendar Contexts")
         ordering = ['webpath__fullpath', 'order']
 
+    def is_lockable_by(self, user):
+        return self.webpath.is_publicable_by(user)
+
     def translate_as(self, lang=settings.LANGUAGE):
         self.calendar.translate_as(lang=lang)
 
