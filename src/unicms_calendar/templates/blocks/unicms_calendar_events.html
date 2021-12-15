@@ -23,6 +23,7 @@
         <v-calendar
             class="w-100"
             locale="{{ LANGUAGE_CODE }}"
+            @update:from-page="switchPage"
             :attributes='attributes'>
             <div slot="day-popover"
              slot-scope="{ day, dayTitle, attributes }">
@@ -58,13 +59,11 @@ var {{ id }} = new Vue({
                      2: "blue",
                      3: "green",
                      4: "violet",},
-            url: '{% url "unicms_calendar:api-context-calendars-events" webpath_id=webpath.pk %}?lang={{ LANGUAGE_CODE }}',
+            url: '{% url "unicms_calendar:api-context-calendars-events" webpath_id=webpath.pk %}',
             items: [],
         }
     },
-    mounted() {
-        this.getEvents(this.url);
-    },
+
     methods: {
         getEvents(url){
             axios
@@ -73,7 +72,10 @@ var {{ id }} = new Vue({
                     this.items = response.data.results
                 })
         },
-
+        switchPage(page) {
+            this.attributes = []
+            this.getEvents(this.url + '?page_size=200&year='+page.year+'&month='+page.month);
+        }
     },
 
     computed: {
