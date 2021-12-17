@@ -88,6 +88,39 @@ class ApiContextCalendarsEvents(generics.ListAPIView):
     def get_queryset(self):
         """
         """
+        localtime = timezone.localtime()
+        params = self.request.GET
+        month = params.get('month', localtime.month)
+        year = params.get('year', localtime.year)
+        webpath_id = self.kwargs['webpath_id']
+
+        # i18n
+        lang = getattr(self.request, 'LANGUAGE_CODE', None)
+
+        query_params = calendar_context_base_filter()
+        query_params.update({'webpath__pk': webpath_id})
+        calendars = CalendarContext.objects.filter(**query_params)
+
+        events = []
+
+        for cal_ctx in calendars:
+            cal_events = cal_ctx.calendar.get_events(year=year, month=month)
+            for event in cal_events:
+                if lang:
+                    event.translate_as(lang)
+                events.append(event)
+        return events
+
+
+@method_decorator(detect_language, name='dispatch')
+class ApiContextCalendarsFutureEvents(ApiContextCalendarsEvents):
+    """
+    """
+    description = 'ApiContextCalendarsFutureEvents'
+
+    def get_queryset(self):
+        """
+        """
         webpath_id = self.kwargs['webpath_id']
         query_params = calendar_context_base_filter()
         query_params.update({'webpath__pk': webpath_id})

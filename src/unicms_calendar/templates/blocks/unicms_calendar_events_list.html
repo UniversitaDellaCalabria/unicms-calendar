@@ -104,7 +104,7 @@ var {{ id }} = new Vue({
     el: '#{{ id }}',
     data () {
         return {
-            url: '{% url "unicms_calendar:api-context-calendars-events" webpath_id=webpath.pk %}?lang={{ LANGUAGE_CODE }}&page_size=3',
+            url: '{% url "unicms_calendar:api-context-calendars-future-events" webpath_id=webpath.pk %}?lang={{ LANGUAGE_CODE }}&page_size=3',
             items: [],
             next_page: "",
             previous_page: "",

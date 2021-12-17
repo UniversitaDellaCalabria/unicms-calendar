@@ -15,6 +15,7 @@ urlpatterns = []
 urlpatterns += path('api/calendars/by-context/<int:webpath_id>/', calendar.ApiContextCalendars.as_view(), name='api-context-calendars'),
 urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:pk>/', calendar.ApiContextCalendar.as_view(), name='api-context-calendar'),
 urlpatterns += path('api/calendars/by-context/<int:webpath_id>/events/', calendar.ApiContextCalendarsEvents.as_view(), name='api-context-calendars-events'),
+urlpatterns += path('api/calendars/by-context/<int:webpath_id>/future-events/', calendar.ApiContextCalendarsFutureEvents.as_view(), name='api-context-calendars-future-events'),
 urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:calendar_id>/events/', calendar.ApiContextCalendarEvents.as_view(), name='api-context-calendar-events'),
 urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:calendar_id>/events/<int:pk>/', calendar.ApiContextCalendarEvent.as_view(), name='api-context-calendar-event'),
 
