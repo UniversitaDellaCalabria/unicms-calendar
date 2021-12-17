@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template import Template, Context
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from cms.contexts.handlers import BaseContentHandler
@@ -100,6 +101,10 @@ class CalendarListHandler(BaseContentHandler):
                 'path': match_dict.get('webpath', '/'),
                 'handler': self,
                 }
+
+        base_url = reverse('unicms_calendar:api-context-calendars',
+                            kwargs = {'webpath_id': page.webpath.pk })
+        data['url'] = base_url
 
         ext_template_sources = contextualize_template(self.template, page)
         template = Template(ext_template_sources)

@@ -55,17 +55,18 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
             self.description = i18n.description
 
     def get_events(self, year='', month=''):
-        query = models.Q(calendar=self, is_active=True, event__is_active=True)
-        query_interval = models.Q()
+        query_params = {'calendar': self,
+                        'is_active': True,
+                        'event__is_active': True}
         if year and month:
             month_days = calendar.monthrange(int(year), int(month))
             start_limit = datetime.datetime(int(year), int(month), month_days[1], 0, 0,
                                             tzinfo=pytz.timezone(settings.TIME_ZONE))
             end_limit = datetime.datetime(int(year), int(month), 1, 0, 0,
                                           tzinfo=pytz.timezone(settings.TIME_ZONE))
-            query_interval = models.Q(event__date_start__lte=start_limit,
-                                      event__date_end__gte=end_limit)
-        events = CalendarEvent.objects.filter(query, query_interval)
+            query_params['event__date_start__lte'] = start_limit
+            query_params['event__date_end__gte'] = end_limit
+        events = CalendarEvent.objects.filter(**query_params)
         return events
 
     def is_lockable_by(self, user):
