@@ -80,6 +80,13 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                                           models.Q(event__date_end__gte=now))
         return events
 
+    def get_calendar_contexts(self, webpath=None):
+        qdict = dict(calendar=self, is_active=True)
+        if webpath:
+            qdict['webpath'] = webpath
+        cal_contexts = CalendarContext.objects.filter(**qdict)
+        return cal_contexts
+
     def __str__(self):
         return self.name
 
@@ -129,6 +136,19 @@ class Event(ActivableModel, TimeStampedModel,
         item = self
         permission = check_user_permission_on_object(user=user, obj=item)
         return permission['granted']
+
+    def get_event_contexts(self, webpath=None):
+        calendars = CalendarEvent.objects.filter(event=self,
+                                                 is_active=True,
+                                                 calendar__is_active=True)\
+                                          .values_list('calendar__pk',
+                                                       flat=True)
+        if not calendars: return None
+        qdict = dict(calendar__pk__in=calendars, is_active=True)
+        if webpath:
+            qdict['webpath'] = webpath
+        cal_contexts = CalendarContext.objects.filter(**qdict)
+        return cal_contexts
 
     def __str__(self):
         return '{}'.format(self.publication)

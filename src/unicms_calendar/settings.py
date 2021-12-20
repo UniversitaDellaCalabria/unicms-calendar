@@ -17,3 +17,13 @@ CMS_CALENDAR_APP_REGEXP_URLPATHS = {
     'unicms_calendar.handlers.CalendarViewHandler': CMS_CALENDAR_URL_VIEW_REGEXP,
     'unicms_calendar.handlers.CalendarEventViewHandler': CMS_CALENDAR_EVENT_URL_VIEW_REGEXP,
 }
+
+CMS_CALENDAR_HOOKS = {
+    'Event': {
+        'PRESAVE': [],
+        'POSTSAVE': ['unicms_calendar.hooks.event_se_insert',],
+                     # 'cms.contexts.hooks.used_by'],
+        'PREDELETE': ['cms.search.hooks.searchengine_entry_remove',],
+        'POSTDELETE': []
+    },
+}
