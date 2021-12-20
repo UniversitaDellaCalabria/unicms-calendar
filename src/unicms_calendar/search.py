@@ -24,7 +24,7 @@ def event_to_entry(event_object):
         "sites": list(sites),
         "urls": list(urls),
         # "categories": [i.name for i in pub_object.categories.all()],
-        "categories": [],
+        "categories": ['Evento'],
         # "tags": [i for i in pub_object.tags.values_list('name', flat=1)],
         "tags": [],
         "translations": [{'language': i[1].lower(),
