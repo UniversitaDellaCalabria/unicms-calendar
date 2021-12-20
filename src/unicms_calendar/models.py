@@ -150,6 +150,10 @@ class Event(ActivableModel, TimeStampedModel,
         cal_contexts = CalendarContext.objects.filter(**qdict)
         return cal_contexts
 
+    @property
+    def is_publicable(self) -> bool:
+        return self.is_active
+
     def __str__(self):
         return '{}'.format(self.publication)
 

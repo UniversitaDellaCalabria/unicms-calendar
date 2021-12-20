@@ -27,3 +27,7 @@ CMS_CALENDAR_HOOKS = {
         'POSTDELETE': []
     },
 }
+
+CMS_CALENDAR_MONGO_MAP = {
+    'unicms_calendar.Event': 'unicms_calendar.search.event_to_entry'
+}
