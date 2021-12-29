@@ -9,8 +9,10 @@
 {% endif %}
 {% load static %}
 
+{% load i18n %}
+{% load static %}
+
 <!-- load custom template tags -->
-{% load unicms_calendar %}
 {% load unicms_carousels %}
 {% load unicms_contexts %}
 {% load unicms_menus %}
@@ -19,21 +21,150 @@
 {% load unicms_publications %}
 
 <!-- SEO  -->
-{% block page_title %}evento{% endblock page_title %}
-{% block page_meta_description %}evento{% endblock page_meta_description %}
+{% block page_title %}{{ event.publication.title }}{% endblock page_title %}
+{% block page_meta_description %}{{ event.publication.subheading }}{% endblock page_meta_description %}
+{% block page_meta_keywords %}{% for tag in event.publication.tags.all %}{{ tag }},{% endfor %}{% endblock page_meta_keywords %}
 
 {% block container %}
-
 {% breadcrumbs webpath=webpath leaf=handler %}
 
-<div class="py-5">
-    <div class="container">
+<div class="container">
+    <div class="col-12 py-5 bd-content">
+        {% block centered_container %}
+
         <div class="mb-3">
             <svg class="icon">
                 <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
             </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
         </div>
-        {% include "blocks/unical_publication_full_view.html" with publication=event.publication %}
+
+        <div class="row">
+
+            <div class="col-12 col-lg-8">
+
+
+                <h1 class="mb-4 lighter">
+                    {{ event.publication.title }}
+                </h1>
+
+                <p class="bigger-font">{{ event.publication.subheading }}</p>
+
+                {% if event.publication.presentation_image %}
+                <div class="img-wrapper pb-3">
+                    <img src="{{ event.publication.presentation_image.get_media_path }}"
+                         title="{{ event.publication.presentation_image.title }}"
+                         alt="{{ event.publication.presentation_image.description }}"
+                         class="w-100">
+                </div>
+                {% elif event.publication.preview_image %}
+                <div class="img-wrapper mb-3 pr-3 pt-2 float-left w-50 mw-100">
+                    <img src="{{ event.publication.preview_image.get_media_path }}"
+                         title="{{ event.publication.preview_image.title }}"
+                         alt="{{ event.publication.preview_image.description }}"
+                         class="w-100">
+                </div>
+                {% endif %}
+
+                {{ event.publication.html_content|safe }}
+
+                {% if event.publication.tags.all %}
+                <h4>{% trans "tags" %}</h4>
+                <p style="font-size: 1.2rem">
+                {% for tag in event.publication.tags.all %}
+                    <span class="badge badge-grey-unical square-corners">{{ tag.name }}</span>
+                {% endfor %}
+                </p>
+                {% endif %}
+
+                {% if event.publication.related_galleries %}
+                <hr>
+
+                <br>
+                <h4>{% trans "photo gallery" %}</h4>
+
+
+                    {% for gallery in event.publication.related_galleries %}
+
+                        {% include "carousel_media_gallery.html" with media_items=gallery.collection.get_items %}
+
+                        {% include "grid_media_gallery.html" with media_items=gallery.collection.get_items %}
+
+                    {% endfor %}
+                {% endif %}
+
+            <!-- END PUBLICATION BODY -->
+            </div>
+
+            <div class="col-12 col-lg-3 offset-lg-1">
+
+                {% if event.publication.related_links %}
+                <div class="row background-light-grey px-2 py-3 mb-2">
+                    <div class="col-2 text-center" style="font-size: x-large">
+                        <b>@</b>
+                    </div>
+                    <div class="col m-auto align-middle">
+                        <ul class="mb-0 pl-0 list-unstyled">
+                        {% for link in event.publication.related_links %}
+                            <li>
+                                <a class="no-color" href="{{ link.url }}">
+                                    <small><b>- {{ link.name }}</b></small>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if event.publication.get_attachments %}
+                <div class="row background-light-grey px-2 py-3 mb-2">
+                    <div class="col-2">
+                        <b>
+                            <svg class="icon">
+                                <use xlink:href="{% static 'svg/sprite.svg' %}#it-files"></use>
+                            </svg>
+                        </b>
+                    </div>
+                    <div class="col m-auto align-middle">
+                        <ul class="mb-0 pl-0 list-unstyled">
+                        {% for item in event.publication.get_attachments %}
+                            <li>
+                                <a class="no-color" href="{{ item.file.url }}">
+                                    <small><b>- {{ item.name }}</b></small>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if event.publication.available_in_languages %}
+                <div class="row background-light-grey px-2 py-3 mb-2">
+                    <div class="col-2">
+                        <b>
+                            <svg class="icon">
+                                <use xlink:href="{% static 'svg/sprite.svg' %}#it-comment"></use>
+                            </svg>
+                        </b>
+                    </div>
+                    <div class="col m-auto align-middle">
+                        <ul class="mb-0 pl-0 list-unstyled">
+                        {% for lang,language in event.publication.available_in_languages %}
+                            <li>
+                                <small><b>- {{ language }}</b></small>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endblock %}
     </div>
 </div>
 {% endblock container %}
