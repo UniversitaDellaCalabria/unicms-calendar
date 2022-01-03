@@ -82,7 +82,7 @@ class ApiContextCalendarsEvents(generics.ListAPIView):
 
     def get_serializer_context(self):
         context = super(ApiContextCalendarsEvents, self).get_serializer_context()
-        context.update({"webpath_id": self.kwargs['webpath_id']})
+        context.update({"webpath_id": self.kwargs.get('webpath_id')})
         return context
 
     def get_queryset(self):
@@ -149,7 +149,7 @@ class ApiContextCalendarEvents(generics.ListAPIView):
 
     def get_serializer_context(self):
         context = super(ApiContextCalendarEvents, self).get_serializer_context()
-        context.update({"webpath_id": self.kwargs['webpath_id']})
+        context.update({"webpath_id": self.kwargs.get('webpath_id')})
         return context
 
     def get_queryset(self):
