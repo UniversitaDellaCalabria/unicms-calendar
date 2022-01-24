@@ -44,7 +44,7 @@
                                                 <b>[[ event.event.publication_data.title ]]</b>
                                             </a>
                                             <br>
-                                            <a :href="event.calendar_url">
+                                            <a :href="'{{ webpath.get_full_path }}' + event.calendar_url">
                                                 [ [[ event.calendar.name ]] ]
                                             </a>
                                             <br>
