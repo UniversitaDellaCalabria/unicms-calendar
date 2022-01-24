@@ -207,6 +207,9 @@ class CalendarContext(TimeStampedModel, ActivableModel,
         url = f'{self.webpath.get_full_path()}{self.path_prefix}/{self.calendar.slug}/'
         return sanitize_path(url)
 
+    def get_absolute_url(self):
+        return self.url
+
     # def get_url_list(self, category_name=None):
         # list_prefix = getattr(settings, 'CMS_CALENDAR_LIST_PREFIX_PATH',
         # CMS_CALENDAR_LIST_PREFIX_PATH)

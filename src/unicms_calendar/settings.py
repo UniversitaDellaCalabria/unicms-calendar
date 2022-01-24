@@ -31,3 +31,6 @@ CMS_CALENDAR_HOOKS = {
 CMS_CALENDAR_MONGO_MAP = {
     'unicms_calendar.Event': 'unicms_calendar.search.event_to_entry'
 }
+
+# SITEMAP PRIORITY
+SITEMAP_CALENDAR_PRIORITY = 0.6
