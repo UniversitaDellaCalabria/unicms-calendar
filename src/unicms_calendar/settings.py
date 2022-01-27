@@ -26,6 +26,13 @@ CMS_CALENDAR_HOOKS = {
         'PREDELETE': ['cms.search.hooks.searchengine_entry_remove',],
         'POSTDELETE': []
     },
+    'CalendarEvent': {
+        'PRESAVE': [],
+        'POSTSAVE': ['unicms_calendar.hooks.calendar_event_se_insert',],
+                     # 'cms.contexts.hooks.used_by'],
+        'PREDELETE': ['cms.search.hooks.searchengine_entry_remove',],
+        'POSTDELETE': []
+    },
 }
 
 CMS_CALENDAR_MONGO_MAP = {

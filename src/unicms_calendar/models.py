@@ -137,12 +137,14 @@ class Event(ActivableModel, TimeStampedModel,
         permission = check_user_permission_on_object(user=user, obj=item)
         return permission['granted']
 
-    def get_event_contexts(self, webpath=None):
-        calendars = CalendarEvent.objects.filter(event=self,
+    def get_event_contexts(self, webpath=None, exclude_calevent=None):
+        calendar_events = CalendarEvent.objects.filter(event=self,
                                                  is_active=True,
-                                                 calendar__is_active=True)\
-                                          .values_list('calendar__pk',
-                                                       flat=True)
+                                                 calendar__is_active=True)
+        if exclude_calevent:
+            calendar_events = calendar_events.exclude(pk=exclude_calevent)
+
+        calendars = calendar_events.values_list('calendar__pk', flat=True)
         if not calendars: return None
         qdict = dict(calendar__pk__in=calendars, is_active=True)
         if webpath:

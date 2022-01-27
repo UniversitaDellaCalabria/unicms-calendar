@@ -7,9 +7,9 @@ from cms.search.models import SearchEntry
 DEFAULT_LANGUAGE = dict(settings.LANGUAGES)[settings.LANGUAGE].lower()
 
 
-def event_to_entry(event_object):
+def event_to_entry(event_object, exclude_calevent=None):
     app_label, model = event_object._meta.label_lower.split('.')
-    contexts = event_object.get_event_contexts()
+    contexts = event_object.get_event_contexts(exclude_calevent=exclude_calevent)
     if not contexts: return
     first_context = contexts.first()
     urls = set([f'//{i.webpath.site.domain}{i.url}{event_object.pk}' for i in contexts])
