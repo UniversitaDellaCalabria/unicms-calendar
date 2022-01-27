@@ -166,7 +166,7 @@ class CalendarEvent(ActivableModel, TimeStampedModel,
     class Meta:
         verbose_name_plural = _("Calendar event relations")
         ordering = ['calendar__pk', 'event__date_start']
-        unique_together = ('event', 'calendar')
+        # unique_together = ('event', 'calendar')
 
     def translate_as(self, lang=settings.LANGUAGE):
         self.calendar.translate_as(lang)
