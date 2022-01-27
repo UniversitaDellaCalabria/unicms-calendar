@@ -23,7 +23,7 @@ class CalendarAdmin(AbstractCreatedModifiedBy):
 class EventAdmin(AbstractCreatedModifiedBy):
     list_display = ('publication', 'date_start',
                     'date_end', 'is_active')
-    search_fields = ('publication',)
+    search_fields = ('publication__name', 'publication__title',)
     list_filter = ('created', 'modified', 'date_start', 'date_end')
     readonly_fields = ('created_by', 'modified_by')
     raw_id_fields = ('publication',)
