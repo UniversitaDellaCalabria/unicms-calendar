@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils import timezone
 
 from cms.api.serializers import UniCMSContentTypeClass, UniCMSCreateUpdateSerializer
 from cms.contexts.serializers import WebPathSerializer
@@ -80,7 +81,7 @@ class EventSelectOptionsSerializer(UniCMSCreateUpdateSerializer,
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data['value'] = instance.pk
-        data['text'] = instance.publication.name
+        data['text'] = f'{instance.publication.name} [{timezone.localtime(instance.date_start)} - {timezone.localtime(instance.date_end)}]'
         return data
 
     class Meta:
