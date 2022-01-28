@@ -17,34 +17,33 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% random_id uid as id %}
 
-<div class="py-5">
-    <div id="{{ id }}">
-        <v-calendar
-            class="w-100"
-            locale="{{ LANGUAGE_CODE }}"
-            @update:from-page="switchPage"
-            :attributes='attributes'>
-            <div slot="day-popover"
-             slot-scope="{ day, dayTitle, attributes }">
-                <ul style="list-style: none" class="pl-2">
-                    <li v-for="attr in attributes">
-                        <b class="mr-2" :style="'color:' + [[ attr.bar.base.color ]]">-</b>
-                        <a class="text-white" :href="attr.popover.url">
-                            [[ attr.popover.label ]]
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </v-calendar>
-    </div>
-    <p class="text-center">
-        <a href="{{ webpath.get_full_path }}{{ calendars_list_path }}">
-            <small>
-                {% trans "Go to calendars detail" %}
-            </small>
-        </a>
-    </p>
+
+<div id="{{ id }}">
+    <v-calendar
+        class="w-100"
+        locale="{{ LANGUAGE_CODE }}"
+        @update:from-page="switchPage"
+        :attributes='attributes'>
+        <div slot="day-popover"
+         slot-scope="{ day, dayTitle, attributes }">
+            <ul style="list-style: none" class="pl-2">
+                <li v-for="attr in attributes">
+                    <b class="mr-2" :style="'color:' + [[ attr.bar.base.color ]]">-</b>
+                    <a class="text-white" :href="attr.popover.url">
+                        [[ attr.popover.label ]]
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </v-calendar>
 </div>
+<p class="text-center">
+    <a href="{{ webpath.get_full_path }}{{ calendars_list_path }}">
+        <small>
+            {% trans "Go to calendars detail" %}
+        </small>
+    </a>
+</p>
 
 <script src='https://unpkg.com/v-calendar'></script>
 <script>
