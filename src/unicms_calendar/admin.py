@@ -16,7 +16,6 @@ class CalendarAdmin(AbstractCreatedModifiedBy):
                CalendarLocalizationInline,
                CalendarContextInline)
     readonly_fields = ('created_by', 'modified_by')
-    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Event)

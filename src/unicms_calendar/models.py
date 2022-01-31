@@ -5,6 +5,7 @@ import pytz
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from cms.api.utils import check_user_permission_on_object
@@ -24,7 +25,7 @@ from taggit.managers import TaggableManager
 class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                AbstractLockable):
     name = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, default='')
     description = models.TextField(max_length=2048,
                                    blank=True,
                                    default='')
@@ -32,6 +33,13 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
     class Meta:
         ordering = ['name']
         verbose_name_plural = _("Calendars")
+
+    def name2slug(self):
+        return slugify(self.name)
+
+    def save(self, *args, **kwargs):
+        self.slug = self.name2slug()
+        super(self.__class__, self).save(*args, **kwargs)
 
     def serialize(self):
         return {'name': self.name,
