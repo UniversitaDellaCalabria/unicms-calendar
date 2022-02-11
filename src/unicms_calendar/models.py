@@ -25,7 +25,7 @@ from taggit.managers import TaggableManager
 class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                AbstractLockable):
     name = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True, blank=True, default='')
+    slug = models.SlugField(unique=True)
     description = models.TextField(max_length=2048,
                                    blank=True,
                                    default='')
