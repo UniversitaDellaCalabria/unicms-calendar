@@ -34,12 +34,9 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
         ordering = ['name']
         verbose_name_plural = _("Calendars")
 
-    def name2slug(self):
-        return slugify(self.name)
-
-    def save(self, *args, **kwargs):
-        self.slug = self.name2slug()
-        super(self.__class__, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+        # self.slug = slugify(self.name)
+        # super(self.__class__, self).save(*args, **kwargs)
 
     def serialize(self):
         return {'name': self.name,
