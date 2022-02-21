@@ -34,10 +34,6 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
         ordering = ['name']
         verbose_name_plural = _("Calendars")
 
-    # def save(self, *args, **kwargs):
-        # self.slug = slugify(self.name)
-        # super(self.__class__, self).save(*args, **kwargs)
-
     def serialize(self):
         return {'name': self.name,
                 'slug': self.slug,
@@ -124,8 +120,7 @@ class CalendarLocalization(ActivableModel,
 
 class Event(ActivableModel, TimeStampedModel,
             SortableModel, CreatedModifiedBy):
-    publication = models.ForeignKey(Publication, on_delete=models.SET_NULL,
-                                    blank=True, null=True)
+    publication = models.ForeignKey(Publication, on_delete=models.PROTECT)
     date_start = models.DateTimeField()
     date_end = models.DateTimeField()
     # tags = TaggableManager()
