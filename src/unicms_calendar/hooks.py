@@ -28,13 +28,9 @@ def event_se_insert(event_object, *args, **kwargs):
     if not event_object.is_active: return
 
     exclude_calendar_event = kwargs.get('exclude_context', None)
-
     search_entry = event_to_entry(event_object,
-                                  exclude_calendar_event=exclude_calendar_event)
-    if search_entry:
-        search_entry = search_entry
-    else:
-        return
+                                  exclude_calevent=exclude_calendar_event)
+    if not search_entry: return
 
     doc = collection.insert_one(search_entry)
     logger.info(f'{event_object} succesfully indexed in search engine')
