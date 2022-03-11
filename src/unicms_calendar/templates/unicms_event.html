@@ -68,10 +68,17 @@
                 {{ event.publication.html_content|safe }}
 
                 {% if event.publication.tags.all %}
+                {% settings_value "CMS_PATH_PREFIX" as cms_path_prefix %}
                 <h4>{% trans "tags" %}</h4>
                 <p style="font-size: 1.2rem">
                 {% for tag in event.publication.tags.all %}
-                    <span class="badge badge-grey-unical square-corners">{{ tag.name }}</span>
+                    <span class="badge badge-grey-unical square-corners">
+                        <a href="/{{ cms_path_prefix }}search/?tags={{ tag.name }}" class="no-color">
+                            <svg class="icon icon-xs">
+                                <use xlink:href="{% static 'svg/sprite.svg' %}#it-pin"></use>
+                            </svg> {{ tag.name }}
+                        </a>
+                    </span>
                 {% endfor %}
                 </p>
                 {% endif %}
