@@ -26,7 +26,7 @@ def event_to_entry(event_object, exclude_calevent=None):
         # "categories": [i.name for i in pub_object.categories.all()],
         "categories": ['Evento'],
         # "tags": [i for i in pub_object.tags.values_list('name', flat=1)],
-        "tags": [],
+        "tags": [i for i in event_object.publication.tags.values_list('name', flat=1)],
         "translations": [{'language': i[1].lower(),
                           'title': i[0].title,
                           'subheading': i[0].subheading,
