@@ -47,6 +47,6 @@ def calendar_event_se_insert(cal_event_object):
 
 def calendar_event_se_delete(cal_event_object, *args, **kwargs):
     event_object = cal_event_object.event
-    event_se_insert(pub_object,
+    event_se_insert(event_object,
                     exclude_calendar_event=cal_event_object.pk,
                     *args, **kwargs)
