@@ -86,15 +86,15 @@ Vue.component('events-pagination', {
     <div class="row">
         <div class="col" v-if="data.total_pages > 1">
             <div>
-                <a :onclick="'{{ id }}.getEvents({{ id }}.previous_page)'">
+                <span :onclick="'{{ id }}.getEvents({{ id }}.previous_page)'" style="cursor: pointer">
                     <span class="sr-only"> {% trans "page" %} </span> &lt;
-                </a>
+                </span>
 
                 <small class="mr-2 ml-2" >[[ data.page ]] / <b>[[ data.total_pages ]]</b></small>
 
-                <a :onclick="'{{ id }}.getEvents({{ id }}.next_page)'">
+                <span :onclick="'{{ id }}.getEvents({{ id }}.next_page)'" style="cursor: pointer">
                     <span class="sr-only"> {% trans "page" %} </span> &gt;
-                </a>
+                </span>
             </div>
         </div>
     </div>
