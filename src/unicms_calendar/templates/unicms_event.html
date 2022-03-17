@@ -32,16 +32,15 @@
     <div class="col-12 py-5 bd-content">
         {% block centered_container %}
 
-        <div class="mb-3">
-            <svg class="icon">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
-            </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
-        </div>
-
         <div class="row">
 
             <div class="col-12 col-lg-8">
 
+                <div class="mb-3">
+                    <svg class="icon">
+                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
+                    </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
+                </div>
 
                 <h1 class="mb-4 lighter">
                     {{ event.publication.title }}
