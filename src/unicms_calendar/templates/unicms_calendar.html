@@ -26,7 +26,7 @@
 {% breadcrumbs webpath=webpath leaf=handler %}
 
 <div class="py-5">
-    <div class="container" id="calendar">
+    <div class="container" id="calendar" style="overflow-x: scroll">
         <h1 class="mb-4 lighter">{{ calendar_context.calendar.name }}</h1>
 
         <v-calendar
@@ -35,8 +35,8 @@
             :attributes="attributes"
             locale="{{ lang }}"
             @update:from-page="switchPage"
-            {% comment %}
             disable-page-swipe
+            {% comment %}
             is-expanded
             {% endcomment %}
         >
