@@ -40,6 +40,7 @@
                     <svg class="icon">
                         <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
                     </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
+                    {% include "includes/edit_event.html" with item=event %}
                 </div>
 
                 <h1 class="mb-4 lighter">
