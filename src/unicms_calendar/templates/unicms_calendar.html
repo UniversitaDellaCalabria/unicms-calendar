@@ -73,7 +73,7 @@ var news = new Vue({
                      2: "info",
                      3: "success",
                      4: "warning",},
-            url: '{% url "unicms_calendar:api-context-calendar-events" webpath_id=webpath.pk calendar_id=calendar_context.calendar.pk %}',
+            url: '{% url "unicms_calendar:api-context-calendar-events" webpath_id=webpath.pk calendarctx_id=calendar_context.pk %}',
             masks: {
                 weekdays: 'WWW',
             },

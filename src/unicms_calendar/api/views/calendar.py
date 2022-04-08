@@ -63,10 +63,10 @@ class ApiContextCalendar(generics.RetrieveAPIView):
 
     def get_queryset(self):
         webpath_id = self.kwargs['webpath_id']
-        calendar_id = self.kwargs['pk']
+        pk = self.kwargs['pk']
         query_params = calendar_context_base_filter()
         query_params.update({'webpath__pk': webpath_id,
-                             'calendar__pk': calendar_id})
+                             'pk': pk})
 
         calcontx = CalendarContext.objects.filter(**query_params)
         return calcontx
@@ -160,10 +160,10 @@ class ApiContextCalendarEvents(generics.ListAPIView):
         month = params.get('month', localtime.month)
         year = params.get('year', localtime.year)
         webpath_id = self.kwargs['webpath_id']
-        calendar_id = self.kwargs['calendar_id']
+        calendarctx_id = self.kwargs['calendarctx_id']
         query_params = calendar_context_base_filter()
         query_params.update({'webpath__pk': webpath_id,
-                             'calendar__pk': calendar_id})
+                             'pk': calendarctx_id})
         calcontx = get_object_or_404(CalendarContext, **query_params)
         events = calcontx.calendar.get_events(year=year, month=month)
         # i18n
@@ -185,11 +185,11 @@ class ApiContextCalendarEvent(generics.RetrieveAPIView):
         """
         """
         webpath_id = self.kwargs['webpath_id']
-        calendar_id = self.kwargs['calendar_id']
+        calendarctx_id = self.kwargs['calendarctx_id']
         event_id = self.kwargs['pk']
         query_params = calendar_context_base_filter()
         query_params.update({'webpath__pk': webpath_id,
-                             'calendar__pk': calendar_id})
+                             'calendar__pk': calendarctx_id})
         calcontx = get_object_or_404(CalendarContext, **query_params)
         event = CalendarEvent.objects.filter(calendar=calcontx.calendar,
                                              event__pk=event_id,

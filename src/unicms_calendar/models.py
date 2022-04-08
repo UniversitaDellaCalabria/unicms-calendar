@@ -65,8 +65,8 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                                             tzinfo=pytz.timezone(settings.TIME_ZONE))
             end_limit = datetime.datetime(int(year), int(month), month_days[1], 23, 59,
                                           tzinfo=pytz.timezone(settings.TIME_ZONE))
-            query_params['event__date_start__gte'] = start_limit
-            query_params['event__date_end__lte'] = end_limit
+            query_params['event__date_start__lte'] = end_limit
+            query_params['event__date_end__gte'] = start_limit
         events = CalendarEvent.objects.filter(**query_params)
         return events
 
