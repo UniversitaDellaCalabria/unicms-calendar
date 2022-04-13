@@ -33,10 +33,14 @@
                                     <div class="col-auto">
                                         <div class="avatar size-lg align-top">
                                             <a :href="'{{ webpath.get_full_path }}' + event.event_url" class="no-color">
-                                                <img :src="event.event.publication_data.preview_image.file || event.event.publication_data.presentation_image.file"
+                                                <img :src="event.event.publication_data.preview_image.file"
                                                      :alt="event.event.publication_data.title"
                                                      :title="event.event.publication_data.title"
-                                                     v-if="event.event.publication_data.preview_image.file || event.event.publication_data.presentation_image.file">
+                                                     v-if="event.event.publication_data.preview_image">
+                                                <img :src="event.event.publication_data.presentation_image.file"
+                                                     :alt="event.event.publication_data.title"
+                                                     :title="event.event.publication_data.title"
+                                                     v-else-if="event.event.publication_data.presentation_image">
                                                 <svg class="icon icon align-top" v-else>
                                                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
                                                 </svg>

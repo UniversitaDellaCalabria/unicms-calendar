@@ -43,10 +43,12 @@ class CalendarEventSerializer(UniCMSCreateUpdateSerializer,
     def to_representation(self, instance):
 
         data = super().to_representation(instance)
-        event = EventSerializer(instance.event)
-        data['event'] = event.data
-        calendar = CalendarSerializer(instance.calendar)
-        data['calendar'] = calendar.data
+        if instance.event:
+            event = EventSerializer(instance.event)
+            data['event'] = event.data
+        if instance.calendar:
+            calendar = CalendarSerializer(instance.calendar)
+            data['calendar'] = calendar.data
 
         webpath_id = self.context.get('webpath_id', None)
         if webpath_id:
@@ -95,10 +97,12 @@ class CalendarContextSerializer(UniCMSCreateUpdateSerializer,
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        calendar = CalendarSerializer(instance.calendar)
-        data['calendar'] = calendar.data
-        webpath = WebPathSerializer(instance.webpath)
-        data['webpath'] = webpath.data
+        if instance.calendar:
+            calendar = CalendarSerializer(instance.calendar)
+            data['calendar'] = calendar.data
+        if instance.webpath:
+            webpath = WebPathSerializer(instance.webpath)
+            data['webpath'] = webpath.data
         data['path'] = instance.url
         return data
 
