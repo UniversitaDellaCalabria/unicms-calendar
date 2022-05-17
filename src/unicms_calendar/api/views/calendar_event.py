@@ -76,7 +76,6 @@ class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
         if not item:
             raise Http404
         # get calendar
-        item.calendar
         permission = check_user_permission_on_object(request.user,
                                                      item.calendar)
         if not permission['granted']:
@@ -89,7 +88,6 @@ class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
         if not item:
             raise Http404
         # get calendar
-        item.calendar
         permission = check_user_permission_on_object(request.user,
                                                      item.calendar)
         if not permission['granted']:
@@ -102,7 +100,6 @@ class CalendarEventView(UniCMSCachedRetrieveUpdateDestroyAPIView):
         if not item:
             raise Http404
         # get calendar
-        item.calendar
         permission = check_user_permission_on_object(request.user,
                                                      item.calendar)
         if not permission['granted']:

@@ -15,83 +15,85 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% random_id uid as id %}
 
+
 <div class="row" id="{{ id }}">
-    <div class="col">
-        <div class="card-wrapper card-space">
-            <div class="card card-bg no-after">
-                <div class="card-body">
-                    <h4 class="card-title">
-                        {% trans "Next events" %}
-                    </h4>
+    <template>
+        <div class="col">
+            <div class="card-wrapper card-space">
+                <div class="card card-bg no-after">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {% trans "Next events" %}
+                        </h4>
 
-                    <events-pagination v-bind:data="items" v-if="items.results" id="{{ id }}"></events-pagination>
+                        <events-pagination v-bind:data="items" v-if="items.results" id="pagination_{{ id }}"></events-pagination>
 
-                    <div>
-                        <ul style="list-style: none" class="p-0">
-                            <li v-for="event in items.results">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <a :href="'{{ webpath.get_full_path }}' + event.event_url"
-                                           class="no-color"
-                                           :title="event.event.publication_data.title">
-                                            <div class="avatar size-lg align-top"
-                                                 :style="'background-image: url('+event.event.publication_data.preview_image.file+'); background-size: cover'"
-                                                 v-if="event.event.publication_data.preview_image">
-                                            </div>
-                                            <div class="avatar size-lg align-top"
-                                                 :style="'background-image: url('+event.event.publication_data.presentation_image.file+'); background-size: cover'"
-                                                 v-else-if="event.event.publication_data.presentation_image">
-                                            </div>
-                                            <div class="avatar size-lg align-top" v-else>
-                                                <svg class="icon icon align-top">
-                                                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
-                                                </svg>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <small class="it-right-zone">
-                                            <a :href="'{{ webpath.get_full_path }}' + event.event_url" class="no-color">
-                                                <b>
-                                                    [[ event.event.publication_data.title ]]
-                                                </b>
-                                            </a>
-                                            <br>
-                                            {% comment %}
-                                            [ [[ event.calendar.name ]] ]
-                                            <br>
-                                            {% endcomment %}
-                                            <small>
-                                                [[ new Date(event.event.date_start).toLocaleString("{{ LANGUAGE_CODE }}",
-                                                                                                   {day: '2-digit',
-                                                                                                    month: '2-digit',
-                                                                                                    year: 'numeric',
-                                                                                                    hour: '2-digit',
-                                                                                                    minute:'2-digit'}) ]]
-                                                {% if request.user.is_authenticated %}
-                                                {% settings_value "EDITORIAL_BOARD_EVENT_EDIT_URL_JS" as editorial_board_url %}
-                                                <div class="float-right">
-                                                    <a :href="{{ editorial_board_url|safe }}" target="_blank" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}">
-                                                        <svg class="icon icon-xs">
-                                                            <use xlink:href="{% static '/svg/sprite.svg' %}#it-settings"></use>
-                                                        </svg>
-                                                    </a>
+                        <div>
+                            <ul style="list-style: none" class="p-0">
+                                <li v-for="event in items.results">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <a :href="'{{ webpath.get_full_path }}' + event.event_url"
+                                               class="no-color"
+                                               :title="event.event.publication_data.title">
+                                                <div class="avatar size-lg align-top"
+                                                     :style="'background-image: url('+event.event.publication_data.preview_image.file+'); background-size: cover'"
+                                                     v-if="event.event.publication_data.preview_image">
                                                 </div>
-                                                {% endif %}
+                                                <div class="avatar size-lg align-top"
+                                                     :style="'background-image: url('+event.event.publication_data.presentation_image.file+'); background-size: cover'"
+                                                     v-else-if="event.event.publication_data.presentation_image">
+                                                </div>
+                                                <div class="avatar size-lg align-top" v-else>
+                                                    <svg class="icon icon align-top">
+                                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <small class="it-right-zone">
+                                                <a :href="'{{ webpath.get_full_path }}' + event.event_url" class="no-color">
+                                                    <b>
+                                                        [[ event.event.publication_data.title ]]
+                                                    </b>
+                                                </a>
+                                                <br>
+                                                {% comment %}
+                                                [ [[ event.calendar.name ]] ]
+                                                <br>
+                                                {% endcomment %}
+                                                <small>
+                                                    [[ new Date(event.event.date_start).toLocaleString("{{ LANGUAGE_CODE }}",
+                                                                                                       {day: '2-digit',
+                                                                                                        month: '2-digit',
+                                                                                                        year: 'numeric',
+                                                                                                        hour: '2-digit',
+                                                                                                        minute:'2-digit'}) ]]
+                                                    {% if request.user.is_authenticated %}
+                                                    {% settings_value "EDITORIAL_BOARD_EVENT_EDIT_URL_JS" as editorial_board_url %}
+                                                    <div class="float-right">
+                                                        <a :href="{{ editorial_board_url|safe }}" target="_blank" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}">
+                                                            <svg class="icon icon-xs">
+                                                                <use xlink:href="{% static '/svg/sprite.svg' %}#it-settings"></use>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                    {% endif %}
+                                                </small>
                                             </small>
-                                        </small>
+                                        </div>
                                     </div>
-                                </div>
-                                <hr>
-                            </li>
-                        </ul>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 </div>
-
 
 <script>
 Vue.component('events-pagination', {
