@@ -58,6 +58,7 @@ class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
     def get_events(self, year='', month=''):
         query_params = {'calendar': self,
                         'is_active': True,
+                        'event__publication__is_active': True,
                         'event__is_active': True}
         if year and month:
             month_days = calendar.monthrange(int(year), int(month))

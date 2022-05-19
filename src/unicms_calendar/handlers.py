@@ -133,6 +133,7 @@ class CalendarEventViewHandler(BaseContentHandler):
                                                 calendar=self.cal_context.calendar,
                                                 is_active=True,
                                                 event__is_active=True,
+                                                event__publication__is_active=True,
                                                 event__pk=self.match_dict.get('event', ''))
         self.page = Page.objects.filter(is_active=True,
                                         webpath=self.cal_context.webpath)\
