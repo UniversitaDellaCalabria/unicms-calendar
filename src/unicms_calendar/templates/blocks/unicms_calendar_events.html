@@ -26,9 +26,9 @@
         :attributes='attributes'>
         <div slot="day-popover"
          slot-scope="{ day, dayTitle, attributes }">
-            <ul style="list-style: none" class="pl-2">
+            <ul style="list-style: none" class="ps-2">
                 <li v-for="attr in attributes">
-                    <b class="mr-2" :style="'color:' + [[ attr.bar.base.color ]]">-</b>
+                    <b class="me-2" :style="'color:' + [[ attr.bar.base.color ]]">-</b>
                     <a class="text-white" :href="attr.popover.url">
                         [[ attr.popover.label ]]
                     </a>

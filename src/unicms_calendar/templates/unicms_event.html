@@ -38,7 +38,7 @@
 
                 <div class="mb-3">
                     <svg class="icon">
-                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-calendar"></use>
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-calendar"></use>
                     </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
                     {% include "includes/edit_event.html" with item=event %}
                 </div>
@@ -57,7 +57,7 @@
                          class="w-100">
                 </div>
                 {% elif event.publication.preview_image %}
-                <div class="img-wrapper mb-3 pr-3 pt-2 float-left w-50 mw-100">
+                <div class="img-wrapper mb-3 pe-3 pt-2 float-start w-50 mw-100">
                     <img src="{{ event.publication.preview_image.get_media_path }}"
                          title="{{ event.publication.preview_image.title }}"
                          alt="{{ event.publication.preview_image.description }}"
@@ -75,7 +75,7 @@
                     <span class="badge badge-grey-unical square-corners">
                         <a href="/{{ cms_path_prefix }}search/?tags={{ tag.name }}" class="no-color">
                             <svg class="icon icon-xs">
-                                <use xlink:href="{% static 'svg/sprite.svg' %}#it-pin"></use>
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-pin"></use>
                             </svg> {{ tag.name }}
                         </a>
                     </span>
@@ -111,7 +111,7 @@
                             <b>@</b>
                         </div>
                         <div class="col m-auto align-middle">
-                            <ul class="mb-0 pl-0 list-unstyled">
+                            <ul class="mb-0 ps-0 list-unstyled">
                             {% for link in event.publication.related_links %}
                                 <li>
                                     <a class="no-color" href="{{ link.url }}">
@@ -131,12 +131,12 @@
                         <div class="col-2">
                             <b>
                                 <svg class="icon">
-                                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-files"></use>
+                                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-files"></use>
                                 </svg>
                             </b>
                         </div>
                         <div class="col m-auto align-middle">
-                            <ul class="mb-0 pl-0 list-unstyled">
+                            <ul class="mb-0 ps-0 list-unstyled">
                             {% for item in event.publication.get_attachments %}
                                 <li>
                                     <a class="no-color" href="{{ item.file.url }}">
@@ -156,12 +156,12 @@
                         <div class="col-2">
                             <b>
                                 <svg class="icon">
-                                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-comment"></use>
+                                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-comment"></use>
                                 </svg>
                             </b>
                         </div>
                         <div class="col m-auto align-middle">
-                            <ul class="mb-0 pl-0 list-unstyled">
+                            <ul class="mb-0 ps-0 list-unstyled">
                             {% for lang,language in event.publication.available_in_languages %}
                                 <li>
                                     <small><b>- {{ language }}</b></small>
