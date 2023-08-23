@@ -13,7 +13,8 @@ from cms.contexts.models import WebPath
 from cms.contexts.models_abstract import AbstractLockable
 from cms.contexts.utils import sanitize_path
 from cms.publications.models import Publication
-from cms.templates.models import (ActivableModel,
+from cms.templates.models import (_lang_choices,
+                                  ActivableModel,
                                   CreatedModifiedBy,
                                   SectionAbstractModel,
                                   SortableModel,
@@ -97,7 +98,7 @@ class CalendarLocalization(ActivableModel,
                            TimeStampedModel, SortableModel,
                            CreatedModifiedBy):
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
-    language = models.CharField(choices=settings.LANGUAGES,
+    language = models.CharField(choices=_lang_choices,
                                 max_length=12,
                                 default='en')
     name = models.CharField(max_length=256,
