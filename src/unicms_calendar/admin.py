@@ -18,6 +18,14 @@ class CalendarAdmin(AbstractCreatedModifiedBy):
     readonly_fields = ('created_by', 'modified_by')
 
 
+@admin.register(CalendarContext)
+class CalendarContextAdmin(AbstractCreatedModifiedBy):
+    list_display = ('calendar', 'webpath', 'is_active')
+    search_fields = ('calendar__name', 'calendar__description', 'webpath__name')
+    list_filter = ('calendar__name', 'created', 'modified')
+    readonly_fields = ('created_by', 'modified_by')
+
+
 @admin.register(Event)
 class EventAdmin(AbstractCreatedModifiedBy):
     list_display = ('publication', 'date_start',

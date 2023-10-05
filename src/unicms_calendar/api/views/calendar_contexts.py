@@ -11,12 +11,12 @@ from cms.contexts.models import WebPath, WebSite
 
 from cms.api.exceptions import LoggedPermissionDenied
 from cms.api.serializers import UniCMSFormSerializer
-from cms.api.views.generics import UniCMSCachedRetrieveUpdateDestroyAPIView, UniCMSListCreateAPIView
+from cms.api.views.generics import UniCMSCachedRetrieveUpdateDestroyAPIView, UniCMSListCreateAPIView, UniCMSListSelectOptionsAPIView
 from cms.api.views.logs import ObjectLogEntriesList
 
 from ... forms import CalendarContextForm
 from ... models import CalendarContext
-from ... serializers import CalendarContextSerializer
+from ... serializers import CalendarContextSerializer, CalendarContextSelectOptionsSerializer
 
 
 class CalendarContextList(UniCMSListCreateAPIView):
@@ -174,3 +174,18 @@ class CalendarContextLogsView(ObjectLogEntriesList):
                                  webpath__site__pk=site_id)
         content_type_id = ContentType.objects.get_for_model(item).pk
         return super().get_queryset(object_id, content_type_id)
+
+
+class EditorialBoardCalendarContextAllOptionListSchema(AutoSchema):
+    def get_operation_id(self, path, method):# pragma: no cover
+        return 'listCalendarContextAllSelectOptions'
+
+
+class ApiContextCalendarAllOptionsList(UniCMSListSelectOptionsAPIView):
+    """
+    """
+    description = ""
+    search_fields = ['calendar__name','webpath__name']
+    serializer_class = CalendarContextSelectOptionsSerializer
+    queryset = CalendarContext.objects.all()
+    schema = EditorialBoardCalendarContextAllOptionListSchema()

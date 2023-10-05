@@ -12,12 +12,14 @@ _board_base = 'unicms_calendar'
 
 urlpatterns = []
 
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/', calendar.ApiContextCalendars.as_view(), name='api-context-calendars'),
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:pk>/', calendar.ApiContextCalendar.as_view(), name='api-context-calendar'),
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/events/', calendar.ApiContextCalendarsEvents.as_view(), name='api-context-calendars-events'),
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/future-events/', calendar.ApiContextCalendarsFutureEvents.as_view(), name='api-context-calendars-future-events'),
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:calendarctx_id>/events/', calendar.ApiContextCalendarEvents.as_view(), name='api-context-calendar-events'),
-urlpatterns += path('api/calendars/by-context/<int:webpath_id>/<int:calendarctx_id>/events/<int:pk>/', calendar.ApiContextCalendarEvent.as_view(), name='api-context-calendar-event'),
+api_calendars_context_prefix = 'api/calendars/by-context'
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/', calendar.ApiContextCalendars.as_view(), name='api-context-calendars'),
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/<int:pk>/', calendar.ApiContextCalendar.as_view(), name='api-context-calendar'),
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/events/', calendar.ApiContextCalendarsEvents.as_view(), name='api-context-calendars-events'),
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/future-events/', calendar.ApiContextCalendarsFutureEvents.as_view(), name='api-context-calendars-future-events'),
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/<int:calendarctx_id>/events/', calendar.ApiContextCalendarEvents.as_view(), name='api-context-calendar-events'),
+urlpatterns += path(f'{api_calendars_context_prefix}/<int:webpath_id>/<int:calendarctx_id>/events/<int:pk>/', calendar.ApiContextCalendarEvent.as_view(), name='api-context-calendar-event'),
+urlpatterns += path(f'{api_calendars_context_prefix}/options/', calendar_contexts.ApiContextCalendarAllOptionsList.as_view(), name='api-context-calendars-all-options'),
 
 # calendars
 cal_prefix = f'{eb_prefix}/calendars'
