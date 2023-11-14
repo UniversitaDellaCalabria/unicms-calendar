@@ -25,7 +25,7 @@ from taggit.managers import TaggableManager
 
 class Calendar(ActivableModel, TimeStampedModel, CreatedModifiedBy,
                AbstractLockable):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField(max_length=2048,
                                    blank=True,
@@ -101,7 +101,7 @@ class CalendarLocalization(ActivableModel,
     language = models.CharField(choices=_lang_choices,
                                 max_length=12,
                                 default='en')
-    name = models.CharField(max_length=256,
+    name = models.CharField(max_length=255,
                             blank=True,
                             default='')
     description = models.TextField(max_length=2048,
@@ -123,9 +123,9 @@ class CalendarLocalization(ActivableModel,
 class Event(ActivableModel, TimeStampedModel,
             SortableModel, CreatedModifiedBy):
     publication = models.ForeignKey(Publication, on_delete=models.PROTECT)
+    location = models.CharField(default='', blank=True, max_length=255)
     date_start = models.DateTimeField()
     date_end = models.DateTimeField()
-    # tags = TaggableManager()
 
     class Meta:
         verbose_name_plural = _("Calendar events")
