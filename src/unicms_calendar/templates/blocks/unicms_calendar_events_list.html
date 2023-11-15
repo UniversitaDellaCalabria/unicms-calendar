@@ -67,6 +67,10 @@
                                                                                                         year: 'numeric',
                                                                                                         hour: '2-digit',
                                                                                                         minute:'2-digit'}) ]]
+                                                    <div v-if="event.event.location">
+                                                        [[ event.event.location ]]
+                                                    </div>
+
                                                     {% if request.user.is_authenticated %}
                                                     {% settings_value "EDITORIAL_BOARD_EVENT_EDIT_URL_JS" as editorial_board_url %}
                                                     <div class="float-right">

@@ -29,6 +29,9 @@
                     <a class="text-white" :href="attr.popover.url">
                         [[ attr.popover.label ]]
                     </a>
+                    <div v-if="attr.popover.location" class="text-white">
+                        [[ attr.popover.location ]]
+                    </div>
                 </li>
             </ul>
         </div>
@@ -87,6 +90,7 @@ var {{ id }} = new Vue({
                     bar: this.colors[0],
                     popover: {
                         label: event.event.publication_data.title,
+                        location: event.event.location,
                         url: event.event_url,
                         visibility: 'focus',
                         isInteractive: true

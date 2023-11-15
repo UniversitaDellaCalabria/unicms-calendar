@@ -33,11 +33,20 @@
 
             <div class="col-12 col-lg-8">
 
-                <div class="mb-3">
-                    <svg class="icon">
-                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-calendar"></use>
-                    </svg>&nbsp;{{ event.date_start }} / {{ event.date_end }}
+                <div class="mb-3" style="text-align: right;">
                     {% include "includes/edit_event.html" with item=event %}
+                </div>
+
+                <div class="mb-3">
+                    <svg class="icon me-2">
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-calendar"></use>
+                    </svg> {{ event.date_start }} / {{ event.date_end }}
+                    {% if event.location %}
+                    <br>
+                    <svg class="icon me-2">
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-map-marker"></use>
+                    </svg> {{ event.location }}
+                    {% endif %}
                 </div>
 
                 <h1 class="mb-4 lighter">

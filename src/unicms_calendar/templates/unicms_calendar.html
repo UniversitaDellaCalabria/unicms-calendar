@@ -53,6 +53,10 @@
                                :class="attr.customData.class">
                                 <span style="font-size: smaller">
                                     <b>[[ attr.customData.title ]]</b>
+                                    <span v-if="attr.customData.location">
+                                        <br>
+                                        [[ attr.customData.location ]]
+                                    </span>
                                 </span>
                             </p>
                         </a>
@@ -92,6 +96,7 @@ var news = new Vue({
                                 customData: {
                                     id: item.event.id,
                                     title: item.event.publication_data.title,
+                                    location: item.event.location,
                                     //class: 'bg-' +  this.colors[index % 4] +' text-white',
                                     class: 'bg-secondary text-white',
                                 },
