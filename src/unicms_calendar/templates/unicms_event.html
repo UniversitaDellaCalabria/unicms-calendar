@@ -121,7 +121,7 @@
                             {% for link in event.publication.related_links %}
                                 <li>
                                     <a class="no-color" href="{{ link.url }}">
-                                        <small><b>- {{ link.name }}</b></small>
+                                        <b>- {{ link.name }}</b>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -146,7 +146,7 @@
                             {% for item in event.publication.get_attachments %}
                                 <li>
                                     <a class="no-color" href="{{ item.file.url }}">
-                                        <small><b>- {{ item.name }}</b></small>
+                                        <b>- {{ item.name }}</b>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -170,7 +170,7 @@
                             <ul class="mb-0 ps-0 list-unstyled">
                             {% for lang,language in event.publication.available_in_languages %}
                                 <li>
-                                    <small><b>- {{ language }}</b></small>
+                                    <b>- {{ language }}</b>
                                 </li>
                             {% endfor %}
                             </ul>

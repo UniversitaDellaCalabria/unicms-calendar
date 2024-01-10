@@ -49,7 +49,7 @@
                                             </a>
                                         </div>
                                         <div class="col">
-                                            <small class="it-right-zone">
+                                            <span class="it-right-zone">
                                                 <a :href="'{{ webpath.get_full_path }}' + event.event_url" class="no-color">
                                                     <b>
                                                         [[ event.event.publication_data.title ]]
@@ -60,29 +60,27 @@
                                                 [ [[ event.calendar.name ]] ]
                                                 <br>
                                                 {% endcomment %}
-                                                <small>
-                                                    [[ new Date(event.event.date_start).toLocaleString("{{ LANGUAGE_CODE }}",
-                                                                                                       {day: '2-digit',
-                                                                                                        month: '2-digit',
-                                                                                                        year: 'numeric',
-                                                                                                        hour: '2-digit',
-                                                                                                        minute:'2-digit'}) ]]
-                                                    <div v-if="event.event.location">
-                                                        [[ event.event.location ]]
-                                                    </div>
+                                                [[ new Date(event.event.date_start).toLocaleString("{{ LANGUAGE_CODE }}",
+                                                                                                   {day: '2-digit',
+                                                                                                    month: '2-digit',
+                                                                                                    year: 'numeric',
+                                                                                                    hour: '2-digit',
+                                                                                                    minute:'2-digit'}) ]]
+                                                <div v-if="event.event.location">
+                                                    [[ event.event.location ]]
+                                                </div>
 
-                                                    {% if request.user.is_authenticated %}
-                                                    {% settings_value "EDITORIAL_BOARD_EVENT_EDIT_URL_JS" as editorial_board_url %}
-                                                    <div class="float-right">
-                                                        <a :href="{{ editorial_board_url|safe }}" target="_blank" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}">
-                                                            <svg class="icon icon-xs">
-                                                                <use xlink:href="{% static '/svg/sprites.svg' %}#it-settings"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                    {% endif %}
-                                                </small>
-                                            </small>
+                                                {% if request.user.is_authenticated %}
+                                                {% settings_value "EDITORIAL_BOARD_EVENT_EDIT_URL_JS" as editorial_board_url %}
+                                                <div class="float-right">
+                                                    <a :href="{{ editorial_board_url|safe }}" target="_blank" alt="{% trans 'Edit' %}" title="{% trans 'Edit' %}">
+                                                        <svg class="icon icon-xs">
+                                                            <use xlink:href="{% static '/svg/sprites.svg' %}#it-settings"></use>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                                {% endif %}
+                                            </span>
                                         </div>
                                     </div>
                                     <hr>
@@ -106,9 +104,9 @@ Vue.component('events-pagination', {
     <div class="text-center">
     <div class="row">
         <div class="col">
-            <small style="color:#050b12;">
+            <span style="color:#050b12;">
                 <b>[[ data.count || 0]] {% trans "results" %}</b> in <b>[[ data.total_pages || 0 ]] {% trans "pages" %}</b>
-            </small>
+            </span>
         </div>
     </div>
     <div class="row">
@@ -118,7 +116,7 @@ Vue.component('events-pagination', {
                     <span class="sr-only"> {% trans "page" %} </span> &lt;
                 </span>
 
-                <small class="ms-2 me-2" >[[ data.page ]] / <b>[[ data.total_pages ]]</b></small>
+                <span class="ms-2 me-2" >[[ data.page ]] / <b>[[ data.total_pages ]]</b></span>
 
                 <span :onclick="'{{ id }}.getEvents({{ id }}.next_page)'" style="cursor: pointer">
                     <span class="sr-only"> {% trans "page" %} </span> &gt;
