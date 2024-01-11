@@ -55,13 +55,13 @@ Vue.component('list-panel', {
                         <div class="float-right">
                             <span>
                                 <a style="color:#050b12;" @click="calendars.callURL( [[ data.previous]] )" v-if="data.previous">
-                                    <span class="sr-only"> {% trans "Page" %} </span> &lt; {% trans "Previous" %}
+                                    <span class="visually-hidden"> {% trans "Page" %} </span> &lt; {% trans "Previous" %}
                                 </a>
                             </span>
 
                             <span class="ms-2 me-2" >[[ data.page ]] / <b>[[ data.total_pages ]]</b></span>
                             <a style="color:#050b12;" @click="calendars.callURL( [[ data.next ]] )"  v-if="data.next">
-                                <span class="sr-only">{% trans "Page" %} </span>{% trans "Next" %} &gt;
+                                <span class="visually-hidden">{% trans "Page" %} </span>{% trans "Next" %} &gt;
                             </a>
                         </div>
                     </div>
@@ -80,7 +80,7 @@ var calendars = new Vue({
     <div v-if="!calendarsLoaded">
         <div>
             <div class="progress progress-indeterminate my-3 unical-progress">
-                <span class="sr-only">{% trans "Loading data" %}</span>
+                <span class="visually-hidden">{% trans "Loading data" %}</span>
                 <div class="progress-bar" role="progressbar"></div>
             </div>
         </div>
