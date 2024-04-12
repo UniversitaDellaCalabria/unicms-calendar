@@ -17,8 +17,7 @@
 {% block extra_head %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/unicms_calendar.css' %}" type="text/css">
-<!-- Link VCalendar Javascript (Plugin automatically installed) -->
-<script src='https://unpkg.com/v-calendar'></script>
+<script src="{% static 'js/v-calendar.2.4.0.js' %}"></script>
 {% endblock extra_head %}
 
 {% block container %}
