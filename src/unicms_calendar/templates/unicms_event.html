@@ -49,6 +49,10 @@
                     {% endif %}
                 </div>
 
+                <div class="mb-3 text-end">
+                    {% include "includes/social_share.html" with share_title=event.publication.title share_url=request.build_absolute_uri %}
+                </div>
+                
                 <h1 class="mb-4 lighter">
                     {{ event.publication.title }}
                 </h1>
