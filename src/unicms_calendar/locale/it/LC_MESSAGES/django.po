@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-18 11:12+0100\n"
-"PO-Revision-Date: 2025-11-18 11:12+0100\n"
+"POT-Creation-Date: 2025-11-18 11:56+0100\n"
+"PO-Revision-Date: 2025-11-18 11:57+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -19,24 +19,28 @@ msgstr ""
 "X-Generator: Poedit 3.4.2\n"
 
 #: src/unicms_calendar/handlers.py:77 src/unicms_calendar/handlers.py:87
-#: src/unicms_calendar/handlers.py:189 src/unicms_calendar/models.py:36
+#: src/unicms_calendar/handlers.py:189 src/unicms_calendar/models.py:37
 #: src/unicms_calendar/templates/unicms_calendars.html:25
 msgid "Calendars"
 msgstr "Calendari"
 
-#: src/unicms_calendar/models.py:112
+#: src/unicms_calendar/models.py:113
 msgid "Calendar Localization"
 msgstr "Localizzazione calendari"
 
-#: src/unicms_calendar/models.py:131
+#: src/unicms_calendar/models.py:132
 msgid "Calendar events"
 msgstr "Eventi calendari"
 
-#: src/unicms_calendar/models.py:171
+#: src/unicms_calendar/models.py:137
+msgid "The end date must be later than the start date"
+msgstr "La data di fine deve essere successiva alla data di inizio"
+
+#: src/unicms_calendar/models.py:177
 msgid "Calendar event relations"
 msgstr "Relazioni eventi calendario"
 
-#: src/unicms_calendar/models.py:196
+#: src/unicms_calendar/models.py:202
 msgid "Calendar Contexts"
 msgstr "Webpath calendario"
 
@@ -90,15 +94,15 @@ msgstr ""
 msgid "Start"
 msgstr "Inizio"
 
-#: src/unicms_calendar/templates/unicms_event.html:46
+#: src/unicms_calendar/templates/unicms_event.html:47
 msgid "End"
 msgstr "Fine"
 
-#: src/unicms_calendar/templates/unicms_event.html:85
+#: src/unicms_calendar/templates/unicms_event.html:86
 msgid "tags"
 msgstr ""
 
-#: src/unicms_calendar/templates/unicms_event.html:103
+#: src/unicms_calendar/templates/unicms_event.html:104
 msgid "photo gallery"
 msgstr ""
 

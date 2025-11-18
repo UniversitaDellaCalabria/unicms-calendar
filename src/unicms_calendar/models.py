@@ -3,6 +3,7 @@ import datetime
 import pytz
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -131,6 +132,15 @@ class Event(ActivableModel, TimeStampedModel,
         verbose_name_plural = _("Calendar events")
         ordering = ['date_start']
 
+    def clean(self):
+        super().clean()
+        if self.date_start >= self.date_end:
+            raise ValidationError({'date_end': _("The end date must be later than the start date")})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+        
     def translate_as(self, lang=settings.LANGUAGE):
         self.publication.translate_as(lang)
 
