@@ -7,71 +7,100 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-03 12:56+0100\n"
-"PO-Revision-Date: 2021-12-03 12:58+0100\n"
+"POT-Creation-Date: 2025-11-18 11:12+0100\n"
+"PO-Revision-Date: 2025-11-18 11:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: handlers.py:76 handlers.py:86 handlers.py:183 models.py:30
+#: src/unicms_calendar/handlers.py:77 src/unicms_calendar/handlers.py:87
+#: src/unicms_calendar/handlers.py:189 src/unicms_calendar/models.py:36
+#: src/unicms_calendar/templates/unicms_calendars.html:25
 msgid "Calendars"
 msgstr "Calendari"
 
-#: models.py:84
+#: src/unicms_calendar/models.py:112
 msgid "Calendar Localization"
 msgstr "Localizzazione calendari"
 
-#: models.py:104
+#: src/unicms_calendar/models.py:131
 msgid "Calendar events"
 msgstr "Eventi calendari"
 
-#: models.py:125
+#: src/unicms_calendar/models.py:171
 msgid "Calendar event relations"
 msgstr "Relazioni eventi calendario"
 
-#: models.py:144
+#: src/unicms_calendar/models.py:196
 msgid "Calendar Contexts"
 msgstr "Webpath calendario"
 
-#: templates/blocks/unicms_calendar_events.html:43
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events.html:42
 msgid "Go to calendars detail"
 msgstr "Vai ai dettagli dei calendari"
 
-#: templates/blocks/unicms_calendar_events_list.html:25
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:23
 msgid "Next events"
 msgstr "Prossimi eventi"
 
-#: templates/blocks/unicms_calendar_events_list.html:78
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:77
+#: src/unicms_calendar/templates/includes/edit_event.html:9
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:109
+#: src/unicms_calendar/templates/unicms_calendars.html:45
+#: src/unicms_calendar/templates/unicms_calendars.html:50
 msgid "results"
 msgstr "risultati"
 
-#: templates/blocks/unicms_calendar_events_list.html:78
-#: templates/unicms_calendars.html:43
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:109
+#: src/unicms_calendar/templates/unicms_calendars.html:45
 msgid "pages"
 msgstr "pagine"
 
-#: templates/blocks/unicms_calendar_events_list.html:86
-#: templates/blocks/unicms_calendar_events_list.html:92
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:117
+#: src/unicms_calendar/templates/blocks/unicms_calendar_events_list.html:123
 msgid "page"
 msgstr "pagina"
 
-#: templates/unicms_calendars.html:43
-msgid "calendars"
-msgstr "calendari"
-
-#: templates/unicms_calendars.html:51 templates/unicms_calendars.html:59
+#: src/unicms_calendar/templates/unicms_calendars.html:58
+#: src/unicms_calendar/templates/unicms_calendars.html:64
 msgid "Page"
 msgstr "Pagina"
 
-#: templates/unicms_calendars.html:51
+#: src/unicms_calendar/templates/unicms_calendars.html:58
 msgid "Previous"
 msgstr "Precedente"
 
-#: templates/unicms_calendars.html:59
+#: src/unicms_calendar/templates/unicms_calendars.html:64
 msgid "Next"
 msgstr "Successivo"
+
+#: src/unicms_calendar/templates/unicms_calendars.html:83
+msgid "Loading data"
+msgstr ""
+
+#: src/unicms_calendar/templates/unicms_event.html:43
+msgid "Start"
+msgstr "Inizio"
+
+#: src/unicms_calendar/templates/unicms_event.html:46
+msgid "End"
+msgstr "Fine"
+
+#: src/unicms_calendar/templates/unicms_event.html:85
+msgid "tags"
+msgstr ""
+
+#: src/unicms_calendar/templates/unicms_event.html:103
+msgid "photo gallery"
+msgstr ""
+
+#~ msgid "calendars"
+#~ msgstr "calendari"

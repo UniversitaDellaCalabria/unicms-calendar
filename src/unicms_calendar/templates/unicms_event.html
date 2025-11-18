@@ -39,8 +39,12 @@
 
                 <div class="mb-3">
                     <svg class="icon me-2">
-                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-calendar"></use>
-                    </svg> {{ event.date_start }} / {{ event.date_end }}
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
+                    </svg> {% trans "Start" %}: {{ event.date_start }}
+                    <br>
+                    <svg class="icon me-2">
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
+                    </svg> {% trans "End" %}: {{ event.date_end }}
                     {% if event.location %}
                     <br>
                     <svg class="icon me-2">
