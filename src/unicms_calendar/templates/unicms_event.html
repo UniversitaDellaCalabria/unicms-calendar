@@ -38,16 +38,16 @@
                 </div>
 
                 <div class="mb-3">
-                    <svg class="icon me-2">
+                    <svg class="icon icon-sm me-1">
                         <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
                     </svg> {% trans "Start" %}: {{ event.date_start }}
                     <br>
-                    <svg class="icon me-2">
+                    <svg class="icon icon-sm me-1">
                         <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
                     </svg> {% trans "End" %}: {{ event.date_end }}
                     {% if event.location %}
                     <br>
-                    <svg class="icon me-2">
+                    <svg class="icon icon-sm me-1">
                         <use xlink:href="{% static 'svg/sprites.svg' %}#it-map-marker"></use>
                     </svg> {{ event.location }}
                     {% endif %}
